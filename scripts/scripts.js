@@ -11,7 +11,7 @@ function addTarefa(){
 
             const tarefa = `${container.innerHTML} 
             <div id="tarefa-${idTarefa}">
-                <p><input type="checkbox" onclick="removeTarefa(${idTarefa})"> ${leitura}</p>
+                <p><input type="checkbox" onclick="concluiTarefa(${idTarefa})"> ${leitura}</p>
             </div>`;
 
             container.innerHTML = tarefa;
@@ -20,9 +20,17 @@ function addTarefa(){
     }
 }
 
+function concluiTarefa(number){
+    const conclui = document.getElementById(`tarefa-${number}`);
+    const texto = conclui.innerText;
+
+    conclui.innerHTML = `<p><s><input type="checkbox" disabled="disabled" checked> ${texto} </s><button onclick="removeTarefa(${number})"> 🗑 </button></p>`
+}
+
 function removeTarefa(number){
     const remove = document.getElementById(`tarefa-${number}`);
-    const texto = remove.innerText;
-
-    remove.innerHTML = `<s><p><input type="checkbox" disabled="disabled" checked> ${texto}</p></s>`
+	
+    if (remove.parentNode) {
+  	    remove.parentNode.removeChild(remove);
+    }
 }
